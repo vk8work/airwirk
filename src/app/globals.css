@@ -1,27 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --accent: #2563eb;
-  --accent-soft: #dbeafe;
-  --card: #ffffff;
-  --muted: #64748b;
+  --bg: #0c0d10;
+  --bg-elevated: #13141a;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --line: rgba(244, 240, 232, 0.1);
+  --line-strong: rgba(244, 240, 232, 0.18);
+  --ink: #f4f0e8;
+  --ink-soft: #c6c0b4;
+  --muted: #8d877b;
+  --accent: #4ee0c2;
+  --accent-dim: rgba(78, 224, 194, 0.14);
+  --accent-deep: #1a8f7a;
+  --warn: #e8b86d;
+  --danger: #e07a6a;
+  --glow: rgba(78, 224, 194, 0.18);
+  --radius: 1.25rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --color-card: var(--card);
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
   --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
   --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-syne);
   --font-mono: var(--font-geist-mono);
 }
 
+* {
+  border-color: var(--line);
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100%;
+}
+
+body {
   font-family: var(--font-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.atmosphere {
+  background:
+    radial-gradient(900px 480px at 12% -10%, rgba(78, 224, 194, 0.12), transparent 55%),
+    radial-gradient(800px 520px at 92% 8%, rgba(232, 184, 109, 0.07), transparent 50%),
+    radial-gradient(700px 500px at 50% 120%, rgba(78, 224, 194, 0.05), transparent 45%),
+    var(--bg);
+}
+
+.hairline {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass {
+  background: rgba(19, 20, 26, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.display {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  letter-spacing: -0.045em;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 0.55s ease both;
 }

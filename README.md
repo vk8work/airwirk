@@ -1,10 +1,25 @@
-# airwirk
+# AirWirk
 
-The unified intelligent workplace platform — people, work, growth, and organization in one flow.
+**Everything work. One flow.**
+
+People, work, growth and organization — connected in one intelligent workspace.
+
+This repository is the AirWirk V0 demonstration: a public landing page and an interactive workspace. It is not a complete HRIS.
+
+## Product idea
+
+AirWirk is designed as an operating system for work. Complexity stays underneath. The surface is simple, calm, and personal.
+
+The core experience is **NOW → NEXT → FLOW**.
+
+## Stack
+
+- Next.js 15
+- TypeScript
+- Tailwind CSS 4
+- pnpm
 
 ## Development
-
-This project uses [Next.js](https://nextjs.org) with TypeScript, Tailwind CSS, and pnpm.
 
 ### Prerequisites
 
@@ -27,10 +42,6 @@ pnpm install
 | `pnpm lint` | Run ESLint |
 | `pnpm typecheck` | Run TypeScript type checking |
 
-### Local development
+Open [http://localhost:3000](http://localhost:3000) for the landing page. Enter the workspace at `/workspace`.
 
-```bash
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+Ask AirWirk uses local mock responses from demo data. There is no AI API, database, or authentication in V0.
