@@ -65,6 +65,9 @@ export function LandingPage() {
             <a href="#intelligence" className="hover:text-ink">
               Intelligence
             </a>
+            <Link href="/todo" className="hover:text-ink">
+              To Do
+            </Link>
           </nav>
           <Button href="/workspace">Enter workspace</Button>
         </div>
@@ -238,7 +241,12 @@ export function LandingPage() {
       <footer className="border-t border-[var(--line)]">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <Logo />
-          <p>V0 · A demonstration of the AirWirk workplace.</p>
+          <p>
+            V0 · A demonstration of the AirWirk workplace.{" "}
+            <Link href="/todo" className="text-ink-soft hover:text-ink">
+              To Do
+            </Link>
+          </p>
         </div>
       </footer>
     </div>
