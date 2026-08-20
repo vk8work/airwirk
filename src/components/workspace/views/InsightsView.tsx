@@ -1,11 +1,13 @@
-import { insights } from "@/data/demo";
+"use client";
+
+import Link from "next/link";
 import { Surface } from "@/components/ui/Surface";
+import { useWorkspace } from "@/components/workspace/WorkspaceProvider";
+import { insights } from "@/data/demo";
 
-type InsightsViewProps = {
-  onOpenAsk: (prompt?: string) => void;
-};
+export function InsightsView() {
+  const { openAsk } = useWorkspace();
 
-export function InsightsView({ onOpenAsk }: InsightsViewProps) {
   return (
     <div className="rise mx-auto max-w-5xl">
       <p className="text-xs uppercase tracking-[0.24em] text-accent">Insights</p>
@@ -18,7 +20,7 @@ export function InsightsView({ onOpenAsk }: InsightsViewProps) {
       </p>
       <button
         type="button"
-        onClick={() => onOpenAsk("What should I prepare for next?")}
+        onClick={() => openAsk("What should I prepare for next?")}
         className="mt-6 text-sm text-accent hover:underline"
       >
         Ask AirWirk what to prepare next
@@ -27,15 +29,17 @@ export function InsightsView({ onOpenAsk }: InsightsViewProps) {
       <ul className="mt-10 space-y-4">
         {insights.map((insight) => (
           <li key={insight.id}>
-            <Surface className="p-5 sm:p-6">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-muted">
-                {insight.dimensions.join(" · ")}
-              </p>
-              <h2 className="mt-3 text-xl font-medium">{insight.title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-                {insight.body}
-              </p>
-            </Surface>
+            <Link href={`/workspace/insights/${insight.id}`} className="block">
+              <Surface className="p-5 transition hover:bg-[var(--surface-strong)] sm:p-6">
+                <p className="text-[11px] uppercase tracking-[0.16em] text-muted">
+                  {insight.dimensions.join(" · ")}
+                </p>
+                <h2 className="mt-3 text-xl font-medium">{insight.title}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                  {insight.body}
+                </p>
+              </Surface>
+            </Link>
           </li>
         ))}
       </ul>

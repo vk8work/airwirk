@@ -42,6 +42,6 @@ pnpm install
 | `pnpm lint` | Run ESLint |
 | `pnpm typecheck` | Run TypeScript type checking |
 
-Open [http://localhost:3000](http://localhost:3000) for the landing page. Enter the workspace at `/workspace`.
+Open [http://localhost:3000](http://localhost:3000) for the landing page. The workspace lives at `/workspace`, with pages for Home, Work, People, Growth, and Insights. Cards open connected detail pages. Ask AirWirk uses local mock responses from demo data. There is no AI API, database, or authentication in V0.
 
 Ask AirWirk uses local mock responses from demo data. There is no AI API, database, or authentication in V0.

@@ -1,55 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 import { Logo } from "@/components/brand/Logo";
-import { AskAirWirk } from "@/components/workspace/AskAirWirk";
-import { GrowthView } from "@/components/workspace/views/GrowthView";
-import { HomeView } from "@/components/workspace/views/HomeView";
-import { InsightsView } from "@/components/workspace/views/InsightsView";
-import { PeopleView } from "@/components/workspace/views/PeopleView";
-import { WorkView } from "@/components/workspace/views/WorkView";
+import { useWorkspace } from "@/components/workspace/WorkspaceProvider";
 import { demoUser } from "@/data/demo";
-import type { WorkspaceView } from "@/lib/types";
+import { isNavActive, workspaceNav } from "@/lib/nav";
 
-const nav: { id: WorkspaceView; label: string }[] = [
-  { id: "home", label: "Home" },
-  { id: "work", label: "Work" },
-  { id: "people", label: "People" },
-  { id: "growth", label: "Growth" },
-  { id: "insights", label: "Insights" },
-];
-
-export function WorkspaceApp() {
-  const [view, setView] = useState<WorkspaceView>("home");
-  const [askOpen, setAskOpen] = useState(false);
-  const [askSeed, setAskSeed] = useState<string | undefined>();
-
-  useEffect(() => {
-    function onKey(event: KeyboardEvent) {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        setAskOpen(true);
-      }
-      if (event.key === "Escape") {
-        setAskOpen(false);
-      }
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  const greeting = useMemo(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Good morning.";
-    if (hour < 18) return "Good afternoon.";
-    return "Good evening.";
-  }, []);
-
-  function openAsk(prompt?: string) {
-    setAskSeed(prompt);
-    setAskOpen(true);
-  }
+export function WorkspaceShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const { openAsk } = useWorkspace();
 
   return (
     <div className="atmosphere min-h-screen">
@@ -69,14 +30,13 @@ export function WorkspaceApp() {
             Workspace
           </p>
           <nav className="mt-3 flex flex-1 flex-col gap-1" aria-label="Primary">
-            {nav.map((item) => {
-              const active = view === item.id;
+            {workspaceNav.map((item) => {
+              const active = isNavActive(item.id, pathname);
               return (
-                <button
+                <Link
                   key={item.id}
-                  type="button"
-                  onClick={() => setView(item.id)}
-                  className={`rounded-xl px-3 py-2.5 text-left text-sm transition ${
+                  href={item.href}
+                  className={`rounded-xl px-3 py-2.5 text-sm transition ${
                     active
                       ? "bg-white/10 text-ink"
                       : "text-ink-soft hover:bg-white/5 hover:text-ink"
@@ -84,7 +44,7 @@ export function WorkspaceApp() {
                   aria-current={active ? "page" : undefined}
                 >
                   {item.label}
-                </button>
+                </Link>
               );
             })}
           </nav>
@@ -101,9 +61,11 @@ export function WorkspaceApp() {
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col pb-20 md:pb-0">
-          <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--line)] px-4 py-3 glass sm:px-8">
+          <header className="glass sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--line)] px-4 py-3 sm:px-8">
             <div className="md:hidden">
-              <Logo />
+              <Link href="/workspace">
+                <Logo />
+              </Link>
             </div>
             <div className="hidden min-w-0 md:block">
               <p className="truncate text-sm text-ink-soft">
@@ -128,54 +90,34 @@ export function WorkspaceApp() {
           </header>
 
           <main id="workspace-main" className="flex-1 px-4 py-8 sm:px-8">
-            {view === "home" ? (
-              <HomeView
-                greeting={greeting}
-                onOpenAsk={openAsk}
-                onNavigate={setView}
-              />
-            ) : null}
-            {view === "work" ? <WorkView /> : null}
-            {view === "people" ? <PeopleView /> : null}
-            {view === "growth" ? <GrowthView /> : null}
-            {view === "insights" ? <InsightsView onOpenAsk={openAsk} /> : null}
+            {children}
           </main>
         </div>
       </div>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--line)] glass md:hidden"
+        className="glass fixed inset-x-0 bottom-0 z-40 border-t border-[var(--line)] md:hidden"
         aria-label="Primary mobile"
       >
         <ul className="grid grid-cols-5">
-          {nav.map((item) => {
-            const active = view === item.id;
+          {workspaceNav.map((item) => {
+            const active = isNavActive(item.id, pathname);
             return (
               <li key={item.id}>
-                <button
-                  type="button"
-                  onClick={() => setView(item.id)}
+                <Link
+                  href={item.href}
                   className={`flex w-full flex-col items-center py-3 text-[11px] ${
                     active ? "text-accent" : "text-muted"
                   }`}
                   aria-current={active ? "page" : undefined}
                 >
                   {item.label}
-                </button>
+                </Link>
               </li>
             );
           })}
         </ul>
       </nav>
-
-      <AskAirWirk
-        open={askOpen}
-        seed={askSeed}
-        onClose={() => {
-          setAskOpen(false);
-          setAskSeed(undefined);
-        }}
-      />
     </div>
   );
 }
