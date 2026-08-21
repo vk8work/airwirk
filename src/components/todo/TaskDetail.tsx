@@ -126,7 +126,7 @@ export function TaskDetail({
             onToggle={onToggle}
           />
         </div>
-        <textarea
+        <input
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           onBlur={commitTitle}
@@ -138,9 +138,8 @@ export function TaskDetail({
             }
             if (event.key === "Escape") onClose();
           }}
-          rows={2}
           aria-label="Task title"
-          className="min-h-[3.2rem] w-full resize-none bg-transparent text-[1.65rem] font-semibold leading-tight tracking-[-0.03em] text-[var(--todo-text)] outline-none"
+          className="w-full bg-transparent text-[1.65rem] font-semibold leading-tight tracking-[-0.03em] text-[var(--todo-text)] outline-none"
         />
       </div>
 
