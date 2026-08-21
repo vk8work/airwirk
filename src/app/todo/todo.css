@@ -1,0 +1,148 @@
+/* AirWirk To Do V1 — light, spacious, purple-accent. Scoped so landing/workspace stay dark. */
+
+html:has(.todo-app),
+html:has(.todo-app) body {
+  background: #fafafc;
+  color: #1d1d1f;
+}
+
+.todo-app {
+  /* Logo + shared primitives on this route */
+  --ink: #1d1d1f;
+  --ink-muted: #6e6e73;
+  --ink-faint: #8e8e93;
+  --accent: #6d4aff;
+  --accent-hover: #5538d9;
+  --accent-soft: #f1eeff;
+  --accent-glow: rgb(109 74 255 / 0.18);
+
+  --todo-bg: #ffffff;
+  --todo-canvas: #fafafc;
+  --todo-soft: #f5f5f7;
+  --todo-border: #e8e8ec;
+  --todo-text: #1d1d1f;
+  --todo-muted: #6e6e73;
+  --todo-faint: #aeaeb2;
+  --todo-purple: #6d4aff;
+  --todo-purple-hover: #5538d9;
+  --todo-purple-soft: #f1eeff;
+  --todo-purple-mid: #e6e0ff;
+  --todo-shadow: 0 18px 50px rgb(29 29 31 / 0.06);
+  --todo-radius: 16px;
+
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse 80% 50% at 100% -10%, rgb(241 238 255 / 0.9), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgb(230 224 255 / 0.35), transparent 45%),
+    var(--todo-canvas);
+  color: var(--todo-text);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.todo-app :focus-visible {
+  outline: 2px solid var(--todo-purple);
+  outline-offset: 3px;
+}
+
+.todo-app ::selection {
+  background: var(--todo-purple-mid);
+  color: var(--todo-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .todo-app *,
+  .todo-app *::before,
+  .todo-app *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes todo-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes todo-check-pop {
+  0% {
+    transform: scale(0.86);
+  }
+  55% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes todo-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes todo-sheet-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.todo-check {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  border: 1.5px solid #c7c7cc;
+  background: #fff;
+  color: transparent;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.todo-check:hover {
+  border-color: var(--todo-purple);
+  box-shadow: 0 0 0 4px rgb(109 74 255 / 0.08);
+}
+
+.todo-check[data-done="true"] {
+  background: var(--todo-purple);
+  border-color: var(--todo-purple);
+  color: #fff;
+  animation: todo-check-pop 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.todo-row {
+  animation: todo-fade-up 280ms ease both;
+}
+
+.todo-panel {
+  animation: todo-panel-in 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.todo-sheet {
+  animation: todo-sheet-up 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
