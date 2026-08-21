@@ -6,7 +6,7 @@ import { useWorkspace } from "@/components/workspace/WorkspaceProvider";
 import { insights } from "@/data/demo";
 
 export function InsightsView() {
-  const { openAsk } = useWorkspace();
+  const { openAsk, to } = useWorkspace();
 
   return (
     <div className="rise mx-auto max-w-5xl">
@@ -29,7 +29,7 @@ export function InsightsView() {
       <ul className="mt-10 space-y-4">
         {insights.map((insight) => (
           <li key={insight.id}>
-            <Link href={`/workspace/insights/${insight.id}`} className="block">
+            <Link href={to(`/workspace/insights/${insight.id}`)} className="block">
               <Surface className="p-5 transition hover:bg-[var(--surface-strong)] sm:p-6">
                 <p className="text-[11px] uppercase tracking-[0.16em] text-muted">
                   {insight.dimensions.join(" · ")}

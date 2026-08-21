@@ -9,7 +9,7 @@ import { learningByGoal, personById, projectById } from "@/data/demo";
 import type { Goal } from "@/lib/types";
 
 export function GoalDetail({ goal }: { goal: Goal }) {
-  const { openAsk, isLearningDone, toggleLearningDone } = useWorkspace();
+  const { openAsk, isLearningDone, toggleLearningDone, to } = useWorkspace();
   const relatedProjects = goal.projectIds
     .map((id) => projectById(id))
     .filter((project) => project != null);
@@ -40,7 +40,7 @@ export function GoalDetail({ goal }: { goal: Goal }) {
 
       <section className="mt-10 grid gap-3 sm:grid-cols-2">
         {relatedProjects.map((project) => (
-          <Link key={project.id} href={`/workspace/work/${project.id}`}>
+          <Link key={project.id} href={to(`/workspace/work/${project.id}`)}>
             <Surface className="h-full p-5 transition hover:bg-[var(--surface-strong)]">
               <p className="text-xs uppercase tracking-[0.16em] text-muted">
                 Work
@@ -50,7 +50,7 @@ export function GoalDetail({ goal }: { goal: Goal }) {
           </Link>
         ))}
         {relatedPeople.map((person) => (
-          <Link key={person.id} href={`/workspace/people/${person.id}`}>
+          <Link key={person.id} href={to(`/workspace/people/${person.id}`)}>
             <Surface className="h-full p-5 transition hover:bg-[var(--surface-strong)]">
               <p className="text-xs uppercase tracking-[0.16em] text-muted">
                 People

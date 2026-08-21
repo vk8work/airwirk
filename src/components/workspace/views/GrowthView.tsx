@@ -7,7 +7,7 @@ import { useWorkspace } from "@/components/workspace/WorkspaceProvider";
 import { goalById, goals, learning } from "@/data/demo";
 
 export function GrowthView() {
-  const { isLearningDone, toggleLearningDone } = useWorkspace();
+  const { isLearningDone, toggleLearningDone, to } = useWorkspace();
 
   return (
     <div className="rise mx-auto max-w-5xl">
@@ -24,7 +24,7 @@ export function GrowthView() {
         {goals.map((goal) => (
           <Link
             key={goal.id}
-            href={`/workspace/growth/${goal.id}`}
+            href={to(`/workspace/growth/${goal.id}`)}
             className="block"
           >
             <Surface className="p-5 transition hover:bg-[var(--surface-strong)] sm:p-6">
@@ -64,7 +64,7 @@ export function GrowthView() {
                 </p>
                 <div>
                   <Link
-                    href={`/workspace/growth/${item.relatedGoalId}`}
+                    href={to(`/workspace/growth/${item.relatedGoalId}`)}
                     className={`text-sm font-medium hover:text-accent ${
                       done ? "text-muted line-through" : ""
                     }`}

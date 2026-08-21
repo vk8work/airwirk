@@ -21,7 +21,7 @@ function greetingForNow() {
 }
 
 export function HomeView() {
-  const { openAsk, isNowHandled } = useWorkspace();
+  const { openAsk, isNowHandled, to } = useWorkspace();
   const greeting = greetingForNow();
   const openNow = attentionNow.filter((item) => !isNowHandled(item.id));
   const handledNow = attentionNow.filter((item) => isNowHandled(item.id));
@@ -63,7 +63,7 @@ export function HomeView() {
             <ul className="mt-4 space-y-3">
               {openNow.map((item) => (
                 <li key={item.id}>
-                  <Link href={item.href} className="block">
+                  <Link href={to(item.href)} className="block">
                     <Surface className="p-5 transition hover:bg-[var(--surface-strong)]">
                       <p className="text-[11px] uppercase tracking-[0.16em] text-muted">
                         {kindLabel[item.kind]} · {item.due}
@@ -97,7 +97,7 @@ export function HomeView() {
               {upcomingNext.map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={item.href}
+                    href={to(item.href)}
                     className="block py-3 transition hover:text-accent"
                   >
                     <p className="text-sm font-medium">{item.title}</p>
@@ -120,7 +120,7 @@ export function HomeView() {
             <ul className="mt-4 grid grid-cols-2 gap-3">
               {flowMetrics.map((metric) => (
                 <li key={metric.id}>
-                  <Link href={metric.href} className="block h-full">
+                  <Link href={to(metric.href)} className="block h-full">
                     <Surface className="h-full p-4 transition hover:bg-[var(--surface-strong)]">
                       <p className="text-xs text-muted">{metric.label}</p>
                       <p className="display mt-2 text-3xl font-semibold">

@@ -20,7 +20,7 @@ const statusColor: Record<Project["status"], string> = {
 };
 
 export function ProjectDetail({ project }: { project: Project }) {
-  const { openAsk, taskStatus } = useWorkspace();
+  const { openAsk, taskStatus, to } = useWorkspace();
   const projectTasks = tasksByProject(project.id);
   const people = project.peopleIds
     .map((id) => personById(id))
@@ -64,7 +64,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           {people.map((person) => (
             <li key={person.id}>
               <Link
-                href={`/workspace/people/${person.id}`}
+                href={to(`/workspace/people/${person.id}`)}
                 className="inline-flex rounded-full border border-[var(--line)] px-3 py-1.5 text-xs text-ink-soft hover:text-ink"
               >
                 {person.name}

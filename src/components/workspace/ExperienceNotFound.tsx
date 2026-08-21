@@ -1,6 +1,10 @@
-import Link from "next/link";
+"use client";
 
-export default function WorkspaceNotFound() {
+import Link from "next/link";
+import { useWorkspace } from "@/components/workspace/WorkspaceProvider";
+
+export default function ExperienceNotFound() {
+  const { to } = useWorkspace();
   return (
     <div className="rise mx-auto max-w-xl">
       <p className="text-xs uppercase tracking-[0.24em] text-accent">Missing</p>
@@ -12,7 +16,7 @@ export default function WorkspaceNotFound() {
         from NOW, NEXT, or FLOW.
       </p>
       <Link
-        href="/workspace"
+        href={to("/home")}
         className="mt-8 inline-flex rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#06241e]"
       >
         Back to Home

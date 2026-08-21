@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { Surface } from "@/components/ui/Surface";
+import { useWorkspace } from "@/components/workspace/WorkspaceProvider";
 import { activity, people, personById } from "@/data/demo";
 
 export function PeopleView() {
+  const { to } = useWorkspace();
+
   return (
     <div className="rise mx-auto max-w-5xl">
       <p className="text-xs uppercase tracking-[0.24em] text-accent">People</p>
@@ -15,7 +20,7 @@ export function PeopleView() {
       <ul className="mt-10 grid gap-3 sm:grid-cols-2">
         {people.map((person) => (
           <li key={person.id}>
-            <Link href={`/workspace/people/${person.id}`} className="block h-full">
+            <Link href={to(`/workspace/people/${person.id}`)} className="block h-full">
               <Surface className="h-full p-5 transition hover:bg-[var(--surface-strong)]">
                 <div className="flex items-center gap-3">
                   <span
@@ -52,7 +57,7 @@ export function PeopleView() {
             return (
               <li key={item.id}>
                 <Link
-                  href={item.href}
+                  href={to(item.href)}
                   className="block py-3 transition hover:text-accent"
                 >
                   <p className="text-sm">

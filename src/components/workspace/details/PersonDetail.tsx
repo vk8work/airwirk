@@ -8,7 +8,7 @@ import { activityByPerson, goalById, projectById } from "@/data/demo";
 import type { Person } from "@/lib/types";
 
 export function PersonDetail({ person }: { person: Person }) {
-  const { openAsk } = useWorkspace();
+  const { openAsk, to } = useWorkspace();
   const relatedProjects = person.projectIds
     .map((id) => projectById(id))
     .filter((project) => project != null);
@@ -46,7 +46,7 @@ export function PersonDetail({ person }: { person: Person }) {
 
       <section className="mt-10 grid gap-3 sm:grid-cols-2">
         {relatedProjects.map((project) => (
-          <Link key={project.id} href={`/workspace/work/${project.id}`}>
+          <Link key={project.id} href={to(`/workspace/work/${project.id}`)}>
             <Surface className="h-full p-5 transition hover:bg-[var(--surface-strong)]">
               <p className="text-xs uppercase tracking-[0.16em] text-muted">
                 Work
@@ -57,7 +57,7 @@ export function PersonDetail({ person }: { person: Person }) {
           </Link>
         ))}
         {relatedGoals.map((goal) => (
-          <Link key={goal.id} href={`/workspace/growth/${goal.id}`}>
+          <Link key={goal.id} href={to(`/workspace/growth/${goal.id}`)}>
             <Surface className="h-full p-5 transition hover:bg-[var(--surface-strong)]">
               <p className="text-xs uppercase tracking-[0.16em] text-muted">
                 Growth

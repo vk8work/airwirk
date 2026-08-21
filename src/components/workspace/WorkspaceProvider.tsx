@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { AskAirWirk } from "@/components/workspace/AskAirWirk";
+import { experiencePath, type ExperienceBase } from "@/lib/experience";
 import type { Task, WorkspaceMemory } from "@/lib/types";
 
 const STORAGE_KEY = "airwirk-workspace-memory-v1";
@@ -21,6 +22,8 @@ const emptyMemory: WorkspaceMemory = {
 };
 
 type WorkspaceContextValue = {
+  basePath: ExperienceBase;
+  to: (href: string) => string;
   memory: WorkspaceMemory;
   openAsk: (prompt?: string) => void;
   isNowHandled: (id: string) => boolean;
@@ -34,7 +37,13 @@ type WorkspaceContextValue = {
 
 const WorkspaceContext = createContext<WorkspaceContextValue | null>(null);
 
-export function WorkspaceProvider({ children }: { children: ReactNode }) {
+export function WorkspaceProvider({
+  children,
+  basePath,
+}: {
+  children: ReactNode;
+  basePath: ExperienceBase;
+}) {
   const [askOpen, setAskOpen] = useState(false);
   const [askSeed, setAskSeed] = useState<string | undefined>();
   const [memory, setMemory] = useState<WorkspaceMemory>(emptyMemory);
@@ -83,6 +92,8 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<WorkspaceContextValue>(
     () => ({
+      basePath,
+      to: (href: string) => experiencePath(basePath, href),
       memory,
       openAsk,
       isNowHandled: (id) => memory.handledNowIds.includes(id),
@@ -115,7 +126,7 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
       taskStatus: (task) =>
         memory.doneTaskIds.includes(task.id) ? "Done" : task.status,
     }),
-    [memory, openAsk],
+    [basePath, memory, openAsk],
   );
 
   return (

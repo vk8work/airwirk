@@ -1,24 +1,27 @@
+import type { ExperienceBase } from "@/lib/experience";
 import type { WorkspaceView } from "@/lib/types";
 
-export const workspaceNav: { id: WorkspaceView; label: string; href: string }[] =
-  [
-    { id: "home", label: "Home", href: "/workspace" },
-    { id: "work", label: "Work", href: "/workspace/work" },
-    { id: "people", label: "People", href: "/workspace/people" },
-    { id: "growth", label: "Growth", href: "/workspace/growth" },
-    { id: "insights", label: "Insights", href: "/workspace/insights" },
+export function workspaceNav(base: ExperienceBase): {
+  id: WorkspaceView;
+  label: string;
+  href: string;
+}[] {
+  return [
+    { id: "home", label: "Home", href: base },
+    { id: "work", label: "Work", href: `${base}/work` },
+    { id: "people", label: "People", href: `${base}/people` },
+    { id: "growth", label: "Growth", href: `${base}/growth` },
+    { id: "insights", label: "Insights", href: `${base}/insights` },
   ];
+}
 
-export function isNavActive(id: WorkspaceView, pathname: string) {
+export function isNavActive(id: WorkspaceView, pathname: string, base: ExperienceBase) {
   if (id === "home") {
     return (
-      pathname === "/workspace" ||
-      pathname.startsWith("/workspace/now") ||
-      pathname.startsWith("/workspace/next")
+      pathname === base ||
+      pathname.startsWith(`${base}/now`) ||
+      pathname.startsWith(`${base}/next`)
     );
   }
-  return (
-    pathname === `/workspace/${id}` ||
-    pathname.startsWith(`/workspace/${id}/`)
-  );
+  return pathname === `${base}/${id}` || pathname.startsWith(`${base}/${id}/`);
 }

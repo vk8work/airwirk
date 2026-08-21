@@ -10,7 +10,8 @@ import { isNavActive, workspaceNav } from "@/lib/nav";
 
 export function WorkspaceShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { openAsk } = useWorkspace();
+  const { openAsk, basePath, to } = useWorkspace();
+  const nav = workspaceNav(basePath);
 
   return (
     <div className="atmosphere min-h-screen">
@@ -30,8 +31,8 @@ export function WorkspaceShell({ children }: { children: ReactNode }) {
             Workspace
           </p>
           <nav className="mt-3 flex flex-1 flex-col gap-1" aria-label="Primary">
-            {workspaceNav.map((item) => {
-              const active = isNavActive(item.id, pathname);
+            {nav.map((item) => {
+              const active = isNavActive(item.id, pathname, basePath);
               return (
                 <Link
                   key={item.id}
@@ -63,7 +64,7 @@ export function WorkspaceShell({ children }: { children: ReactNode }) {
         <div className="flex min-w-0 flex-1 flex-col pb-20 md:pb-0">
           <header className="glass sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--line)] px-4 py-3 sm:px-8">
             <div className="md:hidden">
-              <Link href="/workspace">
+              <Link href={to("/home")}>
                 <Logo />
               </Link>
             </div>
@@ -100,8 +101,8 @@ export function WorkspaceShell({ children }: { children: ReactNode }) {
         aria-label="Primary mobile"
       >
         <ul className="grid grid-cols-5">
-          {workspaceNav.map((item) => {
-            const active = isNavActive(item.id, pathname);
+          {nav.map((item) => {
+            const active = isNavActive(item.id, pathname, basePath);
             return (
               <li key={item.id}>
                 <Link

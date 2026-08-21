@@ -69,7 +69,7 @@ export function LandingPage() {
               To Do
             </Link>
           </nav>
-          <Button href="/workspace">Enter workspace</Button>
+          <Button href="/demo">Enter workspace</Button>
         </div>
       </header>
 
@@ -88,7 +88,7 @@ export function LandingPage() {
             workspace.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href="/workspace">Open the AirWirk workspace</Button>
+            <Button href="/demo">Open the AirWirk workspace</Button>
             <Button href="#philosophy" variant="ghost">
               See the philosophy
             </Button>
@@ -206,7 +206,7 @@ export function LandingPage() {
                 already knows your day.
               </p>
               <div className="mt-8">
-                <Button href="/workspace">Try it in the workspace</Button>
+                <Button href="/demo">Try it in the workspace</Button>
               </div>
             </div>
             <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg)] p-5">
@@ -232,7 +232,7 @@ export function LandingPage() {
               Realistic work. No accounts. No noise.
             </p>
             <div className="mt-8">
-              <Button href="/workspace">Enter workspace</Button>
+              <Button href="/demo">Enter workspace</Button>
             </div>
           </div>
         </section>

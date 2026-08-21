@@ -11,7 +11,7 @@ type TaskListProps = {
 };
 
 export function TaskList({ tasks, projectName, emptyLabel }: TaskListProps) {
-  const { taskStatus, toggleTaskDone } = useWorkspace();
+  const { taskStatus, toggleTaskDone, to } = useWorkspace();
 
   if (tasks.length === 0) {
     return emptyLabel ? (
@@ -33,7 +33,7 @@ export function TaskList({ tasks, projectName, emptyLabel }: TaskListProps) {
             </p>
             <div>
               <Link
-                href={`/workspace/work/${task.projectId}`}
+                href={to(`/workspace/work/${task.projectId}`)}
                 className={`text-sm font-medium hover:text-accent ${
                   status === "Done" ? "text-muted line-through" : ""
                 }`}

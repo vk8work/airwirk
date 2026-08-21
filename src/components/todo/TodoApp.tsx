@@ -221,7 +221,7 @@ export function TodoApp() {
           </p>
           <div className="mt-3">{nav}</div>
           <Link
-            href="/workspace"
+            href="/home"
             className="mt-auto px-3 pb-2 text-xs text-[var(--todo-muted)] transition hover:text-[var(--todo-text)]"
           >
             Workspace

@@ -14,7 +14,7 @@ const statusColor: Record<(typeof projects)[number]["status"], string> = {
 };
 
 export function WorkView() {
-  const { taskStatus } = useWorkspace();
+  const { taskStatus, to } = useWorkspace();
   const openTasks = tasks.filter((task) => taskStatus(task) !== "Done");
   const doneTasks = tasks.filter((task) => taskStatus(task) === "Done");
 
@@ -28,7 +28,7 @@ export function WorkView() {
 
       <section className="mt-10 space-y-4" aria-label="Projects">
         {projects.map((project) => (
-          <Link key={project.id} href={`/workspace/work/${project.id}`} className="block">
+          <Link key={project.id} href={to(`/workspace/work/${project.id}`)} className="block">
             <Surface className="p-5 transition hover:bg-[var(--surface-strong)] sm:p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h2 className="display text-2xl font-semibold">{project.name}</h2>
